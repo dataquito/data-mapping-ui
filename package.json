@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/dataquito/data-mapping-ui/issues"
   },
-  "homepage": "https://github.com/dataquito/data-mapping-ui#readme"
+  "homepage": "https://github.com/dataquito/data-mapping-ui#readme",
+  "dependencies": {
+    "foundation-sites": "^6.2.0"
+  }
 }
