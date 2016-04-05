@@ -26,9 +26,9 @@ module.exports = function(options) {
   var aliases = {};
 
   // Output config
-  var publicPath = options.devServer ? 'http://localhost:8090/application/' : 'application/';
+  var publicPath = options.devServer ? 'http://localhost:8090/build-data-mapping-ui/' : 'build-data-mapping-ui/';
   var output = {
-    path: path.join(__dirname, 'application'),
+    path: path.join(__dirname, 'build'),
     publicPath: publicPath,
     filename: '[name].js' + (options.longTermCaching ? '?[chunkhash]' : ''),
     chunkFilename: (options.devServer ? '[id].js' : '[name].js') + (options.longTermCaching ? '?[chunkhash]' : ''),
@@ -75,4 +75,4 @@ module.exports = function(options) {
       }]
     }
   };
-}();
+};

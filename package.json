@@ -4,6 +4,7 @@
   "description": "data mapping urlto consume rest services",
   "main": "index.js",
   "scripts": {
+    "dev-server": "webpack-dev-server --config webpack-configs/dev-webpack.config.js --progress --colors --port 8090 --inline",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
