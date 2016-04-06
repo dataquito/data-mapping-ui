@@ -25,6 +25,18 @@
   },
   "homepage": "https://github.com/dataquito/data-mapping-ui#readme",
   "dependencies": {
-    "foundation-sites": "^6.2.0"
+    "autoprefixer-loader": "^3.2.0",
+    "babel-core": "^6.7.4",
+    "babel-loader": "^6.2.4",
+    "css-loader": "^0.23.1",
+    "express": "^4.13.4",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "foundation-sites": "^6.2.0",
+    "jade": "^1.11.0",
+    "postcss-loader": "^0.8.2",
+    "react": "^0.14.8",
+    "style-loader": "^0.13.1",
+    "webpack": "^1.12.14",
+    "webpack-dev-server": "^1.14.1"
   }
 }
