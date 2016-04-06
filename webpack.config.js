@@ -1,6 +1,7 @@
 'use strict';
-var path      = require('path');
-var webpack   = require('webpack');
+var path          = require('path');
+var webpack       = require('webpack');
+var statsBuilder  = require('./config/stats-builder');
 
 // 1. Debug    [bd604d99e75e45d38bc7ac8fc714cde0097d901f]
 // 2. DevTool  [3baaa97f47149759b6623684baf7dd794a708f3a]
@@ -24,11 +25,14 @@ module.exports = function(options) {
   // Resolve config
   var modulesDirectories = ['node_modules'];
   var aliases = {};
+  var aliasLoader = {};
 
   // Output config
-  var publicPath = options.devServer ? 'http://localhost:8090/build-data-mapping-ui/' : 'build-data-mapping-ui/';
+  var publicPath = options.devServer ? 
+    'http://localhost:8090/application/' : 
+    '/application/';
   var output = {
-    path: path.join(__dirname, 'build'),
+    path: path.join(__dirname, 'public/application'),
     publicPath: publicPath,
     filename: '[name].js' + (options.longTermCaching ? '?[chunkhash]' : ''),
     chunkFilename: (options.devServer ? '[id].js' : '[name].js') + (options.longTermCaching ? '?[chunkhash]' : ''),
@@ -36,7 +40,20 @@ module.exports = function(options) {
     pathinfo: options.debug
   };
   // JS Plugings
+  var scriptLoaders = {
+    'jsx': options.hotComponents ? ['react-hot-loader', 'babel-loader'] : ['babel-loader'],
+    'js': {
+      loader: 'babel-loader',
+      include: path.join(__dirname, 'assets')
+    }
+    k
+  };
+
+  var excludeFromStats = [];
   var plugins = [
+    function() {
+      this.plugin('done', statsBuilder(excludeFromStats, publicPath));
+    },
     new webpack.PrefetchPlugin('react')
   ];
 
@@ -55,9 +72,14 @@ module.exports = function(options) {
     devtool: 'source-map',  // [3baaa97f47149759b6623684baf7dd794a708f3a]
     target: 'web',          // [61ad50a9b9189cc3cf1874568e35e7901ff4c982]
     entry: {                // [19172e9e47fee4109f3d1d86c3076acdc36822f2]
-      application: path.join(__dirname, 'application/scripts/main.js')
+      application: __dirname + '/assets/index.js'
+      // application: path.join(__dirname, 'assets/scripts/main.js')
     },
     output: output,         // [4bed336194a9a5c86b6a734f03b3570d2aae1a68]
+    resolveLoader: {
+      root: path.join(__dirname, 'node_modules'),
+      alias: aliasLoader
+    },
     resolve: {              // [ac7f958cc028becfb4b2bec9c474bd2d5e8b6095]
       root: __dirname,
       modulesDirectories: modulesDirectories,
@@ -67,12 +89,13 @@ module.exports = function(options) {
       loaders: [{
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: 'babel',
-        query: {
-          stage: 0,
-          plugins: []
-        }
+        loader: 'babel'
       }]
+    },
+    devServer: {
+      stats: {
+        exclude: excludeFromStats
+      }
     }
   };
 };
