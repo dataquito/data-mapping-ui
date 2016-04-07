@@ -46,7 +46,6 @@ module.exports = function(options) {
       loader: 'babel-loader',
       include: path.join(__dirname, 'assets')
     }
-    k
   };
 
   var excludeFromStats = [];
@@ -72,7 +71,7 @@ module.exports = function(options) {
     devtool: 'source-map',  // [3baaa97f47149759b6623684baf7dd794a708f3a]
     target: 'web',          // [61ad50a9b9189cc3cf1874568e35e7901ff4c982]
     entry: {                // [19172e9e47fee4109f3d1d86c3076acdc36822f2]
-      application: __dirname + '/assets/index.js'
+      application: 'assets/index.js'
       // application: path.join(__dirname, 'assets/scripts/main.js')
     },
     output: output,         // [4bed336194a9a5c86b6a734f03b3570d2aae1a68]
@@ -88,11 +87,13 @@ module.exports = function(options) {
     module: {               // [b8ff02892916ff59f7fbd4e617fccd01f6bca576]
       loaders: [{
         test: /\.js$/,
+        include: path.join(__dirname, 'assets'),
         exclude: /node_modules/,
         loader: 'babel'
       }]
     },
     devServer: {
+      contentBase: publicPath,
       stats: {
         exclude: excludeFromStats
       }
