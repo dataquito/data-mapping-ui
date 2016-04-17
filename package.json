@@ -28,7 +28,8 @@
     "express": "^4.13.4",
     "foundation-sites": "^6.2.0",
     "jade": "^1.11.0",
-    "react": "^0.14.8"
+    "react": "^0.14.8",
+    "react-dom": "^15.0.1"
   },
   "devDependencies": {
     "autoprefixer-loader": "^3.2.0",

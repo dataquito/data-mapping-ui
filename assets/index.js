@@ -1,6 +1,7 @@
-var React = require('react');
+import React from 'react';
+import { render } from 'react-dom';
 
-var Sample = React.createClass({
+const Sample = React.createClass({
   render: function() {
     return (
       <div>
@@ -10,4 +11,4 @@ var Sample = React.createClass({
   }
 });
 
-React.render(<Sample />, document.getElementById('react-root'));
+render(<Sample />, document.getElementById('react-root'));
