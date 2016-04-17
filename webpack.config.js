@@ -28,17 +28,16 @@ module.exports = function(options) {
   var aliasLoader = {};
 
   // Output config
-  var publicPath = options.devServer ? 
-    'http://localhost:8090/application/' : 
-    '/application/';
+  var publicPath = options.devServer ? 'http://localhost:8090/application/' : '/application/';
   var output = {
-    path: path.join(__dirname, 'public/application'),
+    path: path.resolve(__dirname, 'application'),
     publicPath: publicPath,
     filename: '[name].js' + (options.longTermCaching ? '?[chunkhash]' : ''),
     chunkFilename: (options.devServer ? '[id].js' : '[name].js') + (options.longTermCaching ? '?[chunkhash]' : ''),
     sourceMapFilename: 'debugging/[file].map',
     pathinfo: options.debug
   };
+  console.log(output);
   // JS Plugings
   var scriptLoaders = {
     'jsx': options.hotComponents ? ['react-hot-loader', 'babel-loader'] : ['babel-loader'],
@@ -93,8 +92,12 @@ module.exports = function(options) {
       }]
     },
     devServer: {
-      contentBase: publicPath,
+      contentBase: __dirname,
+      quiet: false,
+      noInfo: false,
+      publicPath: "/application/",
       stats: {
+        colors: true,
         exclude: excludeFromStats
       }
     }
